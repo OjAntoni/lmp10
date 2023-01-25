@@ -1,9 +1,11 @@
 #include "makespl.h"
 #include "piv_ge_solver.h"
+#include "gaus-seidel/seidel.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <float.h>
+
 
 /* UWAGA: liczbę używanych f. bazowych można ustawić przez wartość
           zmiennej środowiskowej APPROX_BASE_SIZE
@@ -186,7 +188,7 @@ make_spl(points_t * pts, spline_t * spl)
 	write_matrix(eqs, stdout);
 #endif
 
-	if (piv_ge_solver(eqs)) {
+	if (seidel(eqs)) {
 		spl->n = 0;
 		return;
 	}
